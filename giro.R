@@ -1,15 +1,18 @@
 # Recebendo os dados ------------------------------------------------------
 setwd("C:/Users/lucas/OneDrive/Documentos/Faculdade/7 Semestre/Proj/PRJBiomedica")
 
-
 # Ler os dados
 dados <- read.table("giro.txt", header = TRUE, sep = "\t", dec = ",")
 
+
 # Plotar o gráfico
-plot(dados$Tempo, dados$Controle, type = "l", col = "purple", xlab = "Tempo", ylab = "Controle", main = "Giroscópio")
+plot(dados$Tempo, dados$Controle, 
+     type = "l", col = "purple", 
+     xlab = "Tempo", ylab = "Controle", 
+     main = "Giroscópio")
+
 lines(dados$Tempo, dados$Problema.Motor, col = "blue")
 legend("topright", legend = c("Controle", "Problema Motor"), col = c("purple", "blue"), lty = 1)
-
 
 dados_controle <- data.frame(
   Tempo = dados$Tempo,
@@ -21,16 +24,21 @@ dados_Problema <- data.frame(
   Problema = dados$Problema.Motor
 )
 
-plot(dados_controle$Tempo, dados_controle$Controle, type = "l", col = "green", xlab ="tempo", ylab ="controle", main = "TempoXcontrole")
-plot(dados_Problema$Tempo, dados_Problema$Problema, type = "l", col = "red", xlab ="tempo", ylab ="problema", main = "TempoXProblema")
+plot(dados_controle$Tempo, dados_controle$Controle, 
+     type = "l", col = "green", 
+     xlab ="tempo", ylab ="controle", 
+     main = "TempoXcontrole")
+plot(dados_Problema$Tempo, dados_Problema$Problema, 
+     type = "l", col = "red", 
+     xlab ="tempo", ylab ="problema", 
+     main = "TempoXProblema")
+
 
 # Características ---------------------------------------------------------
-
 
 # MAVSD CONTROLE ----------------------------------------------------------
 mavsd_controle <- mean(abs(diff(dados_controle$Controle)))
 print(mavsd_controle)
-
 
 # MAVSD PROBLEMA -------------------------------------------------------------------
 media <- mean(dados_controle$Controle)
@@ -52,6 +60,7 @@ freq_acumulada2 <- cumsum(table(Problema_ordenado))
 F50_Problema <- names(freq_acumulada2)[which.max(freq_acumulada >= 0.5)]
 F50_Problema
 
+
 # KURTOSIS ----------------------------------------------------------------
 library(e1071)
 dados <- c(dados$Tempo, dados$Controle, dados$Problema.Motor)
@@ -59,8 +68,48 @@ curtose <- kurtosis(dados)
 print(curtose)
 
 
-
 # Fazer FFT ---------------------------------------------------------------
 
+# FFT Dados Controle
+AmplitudeFFTControle <- c(dados$Controle)
+
+FFTControle <- fft(AmplitudeFFTControle)
+
+df.dadosFFTControle <- data.frame(
+  Tempo = dados$Tempo,
+  AmplitudeFFT.Controle = FFTControle
+)
+
+plot(dados$Tempo, dados$Controle, # Sinal Original
+     type = "l", col = "red",
+     xlab ="Tempo", ylab ="Amplitude", 
+     main = "Original Signal") 
+
+plot(df.dadosFFTControle$Tempo, df.dadosFFTControle$AmplitudeFFT.Controle, 
+     type = "l", col = "purple",
+     xlab ="Tempo", ylab ="Amplitude", 
+     main = "Sinal FFT - Controle")
+
+
+# FFT Dados Problema
+AmplitudeFFTProblema <- c(dados$Problema.Motor)
+
+FFTProblema <- fft(AmplitudeFFTProblema)
+
+df.dadosFFTProblema <- data.frame(
+  Tempo = dados$Tempo,
+  AmplitudeFFT.Problema = FFTProblema
+)
+
+plot(dados$Tempo, dados$Problema.Motor, # Sinal Original
+     type = "l", col = "red",
+     xlab ="Tempo", ylab ="Amplitude", 
+     main = "Original Signal") 
+
+help(col)
+plot(df.dadosFFTProblema$Tempo, df.dadosFFTProblema$AmplitudeFFT.Problema, 
+     type = "l", col = "purple", 
+     xlab ="Tempo", ylab ="Amplitude", 
+     main = "Sinal FFT - Problema")
 
 
