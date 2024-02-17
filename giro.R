@@ -26,17 +26,41 @@ plot(dados_Problema$Tempo, dados_Problema$Problema, type = "l", col = "red", xla
 
 # Características ---------------------------------------------------------
 
-#MAVSD TempoXControle
 
-#MAVSD TexmpoXProblemaMotor
-mavsdasa <- mean(abs(diff(dados_controle)))
-print(mavsd)
+# MAVSD CONTROLE ----------------------------------------------------------
+mavsd_controle <- mean(abs(diff(dados_controle$Controle)))
+print(mavsd_controle)
 
 
-#F50
+# MAVSD PROBLEMA -------------------------------------------------------------------
+media <- mean(dados_controle$Controle)
+mavsd_Problema <- mean(abs(diff(dados_Problema$Problema)))
+print(mavsd_Problema)
 
-#Kurtosis
+
+# F50 ---------------------------------------------------------------------
+
+#F50 Dados Controle
+Controle_ordenado <- sort(dados_controle$Controle)
+freq_acumulada <- cumsum(table(Controle_ordenado))
+F50_controle <- names(freq_acumulada)[which.max(freq_acumulada >= 0.5)]
+F50_controle
+
+#F50 Dados problema
+Problema_ordenado <- sort(dados_Problema$Problema)
+freq_acumulada2 <- cumsum(table(Problema_ordenado))
+F50_Problema <- names(freq_acumulada2)[which.max(freq_acumulada >= 0.5)]
+F50_Problema
+
+# KURTOSIS ----------------------------------------------------------------
 library(e1071)
 dados <- c(dados$Tempo, dados$Controle, dados$Problema.Motor)
 curtose <- kurtosis(dados)
 print(curtose)
+
+
+
+# Fazer FFT ---------------------------------------------------------------
+
+
+
