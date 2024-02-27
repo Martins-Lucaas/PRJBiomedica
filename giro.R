@@ -62,11 +62,17 @@ F50_Problema
 
 
 # KURTOSIS ----------------------------------------------------------------
+# KURTOSIS Dados controle
+
 library(e1071)
-dados <- c(dados$Tempo, dados$Controle, dados$Problema.Motor)
-curtose <- kurtosis(dados)
+dadoskur <- c(dados$Tempo, dados_controle$Controle)
+curtose <- kurtosis(dadoskur)
 print(curtose)
 
+# KURTOSIS Dados Problema
+dadoskur2 <- c(dados$Tempo, dados_Problema$Problema)
+curtose1 <- kurtosis(dadoskur2)
+print(curtose1)
 
 # Fazer FFT ---------------------------------------------------------------
 
@@ -106,7 +112,6 @@ plot(dados$Tempo, dados$Problema.Motor, # Sinal Original
      xlab ="Tempo", ylab ="Amplitude", 
      main = "Original Signal") 
 
-help(col)
 plot(df.dadosFFTProblema$Tempo, df.dadosFFTProblema$AmplitudeFFT.Problema, 
      type = "l", col = "purple", 
      xlab ="Tempo", ylab ="Amplitude", 
