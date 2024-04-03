@@ -8,6 +8,7 @@ library(tidyverse)
 library(readxl)
 library(tibble)
 library(nortest)
+
 # Definir diretório de trabalho
 setwd("C:/Users/lucas/OneDrive/Documentos/Faculdade/7 Semestre/Proj/PRJBiomedica/Dados")
 
@@ -28,12 +29,12 @@ calcular_caracteristicas <- function(dados, tempo, nome) {
   FFT_Sinal <- Mod(fft(dados))
   
   # Plotando o espectro
-  dygraph(data.frame(freq = VetorFreq[1:(length(VetorFreq) / 2)],
-                     mag = FFT_Sinal[1:(length(FFT_Sinal) / 2)]),
-          main = paste("Espectro de Frequência -", nome),
-          xlab = "Frequência (Hz)",
-          ylab = "Magnitude") %>%
-    dyRangeSelector()
+  plot(VetorFreq[1:(length(VetorFreq) / 2)], 
+       FFT_Sinal[1:(length(FFT_Sinal) / 2)], 
+       type = "l", 
+       main = paste("Espectro de Frequência -", nome),
+       xlab = "Frequência (Hz)", 
+       ylab = "Magnitude")
   
   # Cálculos de características
   MAVSD <- mean(abs(diff(diff(dados, differences = 2))))
@@ -155,5 +156,98 @@ TesteNormalidade_ProblemaMotor_Kurtosis
 
 
 # Módulo 3 - FILTRO -------------------------------------------------------
+# Utilizar filtro passa faixa Butterworth de 4a ordem, 1 a 16Hz 
+# Filtro Butterworth
 
+# Função para calcular características com filtro
+calcular_caracteristicas_filtrado <- function(dados, tempo, nome) {
+  # Plotar o gráfico
+  plot(tempo, dados, 
+       type = "l", col = "green", 
+       xlab = "Tempo", ylab = nome, 
+       main = paste("Dados Filtrados", nome))
+  
+  # Aplicar filtro Butterworth
+  n <- 4 # Ordem do filtro
+  fs <- 50 # Frequência de amostragem em Hz
+  fpass <- c(1, 16) # Frequência de corte em Hz
+  butterworth <- butter(n, c(fpass/(fs*0.5)), type = "pass")
+  
+  # Filtrar os dados
+  dados_filtrados <- filtfilt(butterworth, dados)
+  
+  # Plotar sinal filtrado no domínio do tempo
+  lines(tempo, dados_filtrados, col = "blue")
+  
+  # Transforma para o domínio da frequência
+  FreqAmostragem <- 1 / (tempo[2] - tempo[1])
+  delta <- FreqAmostragem / length(tempo)
+  VetorFreq <- seq(0, (length(tempo) - 1) * delta, delta)
+  
+  # Cálculo da FFT do sinal
+  FFT_Sinal <- Mod(fft(dados_filtrados))
+  
+  # Plotando o espectro de frequência do sinal filtrado
+  plot(VetorFreq[1:(length(VetorFreq) / 2)], FFT_Sinal[1:(length(FFT_Sinal) / 2)],
+       type = "l", col = "red",
+       xlab = "Frequência (Hz)", ylab = "Magnitude",
+       main = paste("Espectro de Frequência Filtrado -", nome))
+  
+  # Calculando F50 para o sinal filtrado
+  df_F50 <- data.frame(Frequencia = VetorFreq, Amplitude = FFT_Sinal)
+  EnergiaTotal <- sum(df_F50$Amplitude)
+  Limiar_F50 <- 0.5 * EnergiaTotal
+  Soma_Cumulativa <- 0
+  F50_Filtrado <- NULL
+  
+  for (i in 1:nrow(df_F50)) {
+    Soma_Cumulativa <- Soma_Cumulativa + df_F50$Amplitude[i]
+    if (Soma_Cumulativa >= Limiar_F50) {
+      F50_Filtrado <- df_F50$Frequencia[i]
+      break
+    }
+  }
+  
+  return(list(MAVSD_Filtrado = mean(abs(diff(diff(dados_filtrados, differences = 2)))),
+              F50_Filtrado = F50_Filtrado,
+              Kurtosis_Filtrado = kurtosis(c(tempo, dados_filtrados))))
+}
+
+# Loop sobre cada sinal de controle
+resultados_controle_filtrado <- lapply(nomes_colunas_controle, function(nome_coluna) {
+  dados <- GrupoControleTotal[[nome_coluna]]
+  tempo <- GrupoControleTotal$Tempo
+  calcular_caracteristicas_filtrado(dados, tempo, nome_coluna)
+})
+
+# Loop sobre cada sinal de problema motor
+resultados_problema_motor_filtrado <- lapply(nomes_colunas_problema_motor, function(nome_coluna) {
+  dados <- GrupoProblemaMotorTotal[[nome_coluna]]
+  tempo <- GrupoProblemaMotorTotal$Tempo
+  calcular_caracteristicas_filtrado(dados, tempo, nome_coluna)
+})
+
+# Extrair os resultados para criar a tabela
+MAVSD_CONTROLE_Filtrado <- sapply(resultados_controle_filtrado, function(x) x$MAVSD_Filtrado)
+F50_CONTROLE_Filtrado <- sapply(resultados_controle_filtrado, function(x) x$F50_Filtrado)
+KURTOSIS_CONTROLE_Filtrado <- sapply(resultados_controle_filtrado, function(x) x$Kurtosis_Filtrado)
+
+MAVSD_PROBLEMAMOTOR_Filtrado <- sapply(resultados_problema_motor_filtrado, function(x) x$MAVSD_Filtrado)
+F50_PROBLEMAMOTOR_Filtrado <- sapply(resultados_problema_motor_filtrado, function(x) x$F50_Filtrado)
+KURTOSIS_PROBLEMAMOTOR_Filtrado <- sapply(resultados_problema_motor_filtrado, function(x) x$Kurtosis_Filtrado)
+
+# Criar a tabela com dados filtrados
+Tabela_Características_Filtradas <- data.frame(
+  MAVSD_F = c(MAVSD_CONTROLE_Filtrado, MAVSD_PROBLEMAMOTOR_Filtrado),
+  F50_F = c(F50_CONTROLE_Filtrado, F50_PROBLEMAMOTOR_Filtrado),
+  KURTOSIS_F = c(KURTOSIS_CONTROLE_Filtrado, KURTOSIS_PROBLEMAMOTOR_Filtrado)
+)
+
+# Adicionar nomes das linhas
+rownames(Tabela_Características_Filtradas) <- c(paste0("C", 1:5), paste0("DP", 1:5))
+
+# Mostrar a tabela com dados filtrados
+Tabela_Características_Filtradas
+
+Tabela_Características
 
