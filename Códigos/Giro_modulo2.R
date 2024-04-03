@@ -13,7 +13,7 @@ library(tibble)
 library(nortest)
 #INÍCIO---------------------------------------------------------
 
-setwd("C:/Users/lucas/OneDrive/Documentos/Faculdade/7 Semestre/Proj/PRJBiomedica")
+setwd("E:/GitHub/PRJBiomedica/Dados")
 
 #Dados Grupo 1 ------------------------------------------------------
 

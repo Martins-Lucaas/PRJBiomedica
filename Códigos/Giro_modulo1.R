@@ -1,5 +1,5 @@
 # Recebendo os dados ------------------------------------------------------
-setwd("E:/GitHub/PRJBiomedica")
+setwd("E:/GitHub/PRJBiomedica/Dados")
 
 # Ler os dados
 dados <- read.table("giro.txt", header = TRUE, sep = "\t", dec = ",")
@@ -88,7 +88,7 @@ VetorFreq <- seq(0,FreqRes,delta)
 FFT_Sinal <- Mod(fft(dados$Controle))
 
 dygraph(data.frame(freq = VetorFreq[1:(length(VetorFreq)/2)],
-                   mag = FFT_Sinal[1:(length(FFT_Sinal)/2)]),
+        mag = FFT_Sinal[1:(length(FFT_Sinal)/2)]),
         main = "Espectro de Frequência - Sinal Controle Módulo 1",
         xlab = "Frequência (Hz)",
         ylab = "Magnitude") %>%
