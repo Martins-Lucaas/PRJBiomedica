@@ -69,15 +69,15 @@ MAVSD_CONTROLE_1.1 <- mean(abs(diff(diff(DadosControle1$Controle, differences = 
 df_F50_CONTROLE1.1 <- data.frame(Frequencia = VetorFreq1.1, Amplitude = FFT_Sinal1.1)
 
 # Calcule a F50
-EnergiaTotal <- sum(df_F50_CONTROLE1.1$Amplitude)
-Limiar_F50 <- 0.5 * EnergiaTotal
+EnergiaTotal_1.1 <- sum(df_F50_CONTROLE1.1$Amplitude)
+Limiar_F50_1.1 <- 0.5 * EnergiaTotal_1.1
 
 F50_Controle1.1 <- NULL
 Soma_Cumulativa <- 0
 
 for (i in 1:nrow(df_F50_CONTROLE1.1)) {
   Soma_Cumulativa <- Soma_Cumulativa + df_F50_CONTROLE1.1$Amplitude[i]
-  if (Soma_Cumulativa >= Limiar_F50) {
+  if (Soma_Cumulativa > Limiar_F50_1.1) {
     F50_Controle1.1 <- df_F50_CONTROLE1.1$Frequencia[i]
     break
   }
@@ -142,15 +142,15 @@ MAVSD_CONTROLE_1.2 <- mean(abs(diff(diff(DadosControle2$Controle, differences = 
 df_F50_CONTROLE1.2 <- data.frame(Frequencia = VetorFreq1.2, Amplitude = FFT_Sinal1.2)
 
 # Calcule a F50
-EnergiaTotal <- sum(df_F50_CONTROLE1.2$Amplitude)
-Limiar_F50 <- 0.5 * EnergiaTotal
+EnergiaTotal_1.2 <- sum(df_F50_CONTROLE1.2$Amplitude)
+Limiar_F50_1.2 <- 0.5 * EnergiaTotal_1.2
 
 F50_Controle1.2 <- NULL
 Soma_Cumulativa <- 0
 
-for (i in 1:nrow(df_F50_CONTROLE1.1)) {
+for (i in 1:nrow(df_F50_CONTROLE1.2)) {
   Soma_Cumulativa <- Soma_Cumulativa + df_F50_CONTROLE1.2$Amplitude[i]
-  if (Soma_Cumulativa >= Limiar_F50) {
+  if (Soma_Cumulativa >= Limiar_F50_1.2) {
     F50_Controle1.2 <- df_F50_CONTROLE1.2$Frequencia[i]
     break
   }
@@ -215,15 +215,15 @@ MAVSD_CONTROLE_1.3 <- mean(abs(diff(diff(DadosControle3$Controle, differences = 
 df_F50_CONTROLE1.3 <- data.frame(Frequencia = VetorFreq1.3, Amplitude = FFT_Sinal1.3)
 
 # Calcule a F50
-EnergiaTotal <- sum(df_F50_CONTROLE1.3$Amplitude)
-Limiar_F50 <- 0.5 * EnergiaTotal
+EnergiaTotal_1.3 <- sum(df_F50_CONTROLE1.3$Amplitude)
+Limiar_F50_1.3 <- 0.5 * EnergiaTotal_1.3
 
 F50_Controle1.3 <- NULL
 Soma_Cumulativa <- 0
 
 for (i in 1:nrow(df_F50_CONTROLE1.1)) {
   Soma_Cumulativa <- Soma_Cumulativa + df_F50_CONTROLE1.3$Amplitude[i]
-  if (Soma_Cumulativa >= Limiar_F50) {
+  if (Soma_Cumulativa >= Limiar_F50_1.3) {
     F50_Controle1.3 <- df_F50_CONTROLE1.3$Frequencia[i]
     break
   }
@@ -289,15 +289,15 @@ MAVSD_CONTROLE_1.4 <- mean(abs(diff(diff(DadosControle4$Controle, differences = 
 df_F50_CONTROLE1.4 <- data.frame(Frequencia = VetorFreq1.4, Amplitude = FFT_Sinal1.4)
 
 # Calcule a F50
-EnergiaTotal <- sum(df_F50_CONTROLE1.4$Amplitude)
-Limiar_F50 <- 0.5 * EnergiaTotal
+EnergiaTotal_1.4 <- sum(df_F50_CONTROLE1.4$Amplitude)
+Limiar_F50_1.4 <- 0.5 * EnergiaTotal_1.4
 
 F50_Controle1.4 <- NULL
 Soma_Cumulativa <- 0
 
 for (i in 1:nrow(df_F50_CONTROLE1.1)) {
   Soma_Cumulativa <- Soma_Cumulativa + df_F50_CONTROLE1.4$Amplitude[i]
-  if (Soma_Cumulativa >= Limiar_F50) {
+  if (Soma_Cumulativa >= Limiar_F50_1.4) {
     F50_Controle1.4 <- df_F50_CONTROLE1.4$Frequencia[i]
     break
   }
@@ -363,15 +363,15 @@ MAVSD_CONTROLE_1.5 <- mean(abs(diff(diff(DadosControle5$Controle, differences = 
 df_F50_CONTROLE1.5 <- data.frame(Frequencia = VetorFreq1.5, Amplitude = FFT_Sinal1.5)
 
 # Calcule a F50
-EnergiaTotal <- sum(df_F50_CONTROLE1.5$Amplitude)
-Limiar_F50 <- 0.5 * EnergiaTotal
+EnergiaTotal_1.5 <- sum(df_F50_CONTROLE1.5$Amplitude)
+Limiar_F50_1.5 <- 0.5 * EnergiaTotal_1.5
 
 F50_Controle1.5 <- NULL
 Soma_Cumulativa <- 0
 
 for (i in 1:nrow(df_F50_CONTROLE1.5)) {
   Soma_Cumulativa <- Soma_Cumulativa + df_F50_CONTROLE1.5$Amplitude[i]
-  if (Soma_Cumulativa >= Limiar_F50) {
+  if (Soma_Cumulativa >= Limiar_F50_1.5) {
     F50_Controle1.5 <- df_F50_CONTROLE1.5$Frequencia[i]
     break
   }
@@ -450,15 +450,15 @@ MAVSD_PROBLEMAMOTOR_2.1 <- mean(abs(diff(diff(DadosProblemaMotor1$Controle, diff
 df_F50_PROBLEMAMOTOR_2.1 <- data.frame(Frequencia = VetorFreq2.1, Amplitude = FFT_Sinal2.1)
 
 # Calcule a F50
-EnergiaTotal <- sum(df_F50_PROBLEMAMOTOR_2.1$Amplitude)
-Limiar_F50 <- 0.5 * EnergiaTotal
+EnergiaTotal_2.1 <- sum(df_F50_PROBLEMAMOTOR_2.1$Amplitude)
+Limiar_F50_2.1 <- 0.5 * EnergiaTotal_2.1
 
 F50_ProblemaMotor2.1 <- NULL
 Soma_Cumulativa <- 0
 
 for (i in 1:nrow(df_F50_PROBLEMAMOTOR_2.1)) {
   Soma_Cumulativa <- Soma_Cumulativa + df_F50_PROBLEMAMOTOR_2.1$Amplitude[i]
-  if (Soma_Cumulativa >= Limiar_F50) {
+  if (Soma_Cumulativa >= Limiar_F50_2.1) {
     F50_ProblemaMotor2.1 <- df_F50_PROBLEMAMOTOR_2.1$Frequencia[i]
     break
   }
@@ -524,15 +524,15 @@ MAVSD_PROBLEMAMOTOR_2.2 <- mean(abs(diff(diff(DadosProblemaMotor2$Controle, diff
 df_F50_PROBLEMAMOTOR_2.2 <- data.frame(Frequencia = VetorFreq2.2, Amplitude = FFT_Sinal2.2)
 
 # Calcule a F50
-EnergiaTotal <- sum(df_F50_PROBLEMAMOTOR_2.2$Amplitude)
-Limiar_F50 <- 0.5 * EnergiaTotal
+EnergiaTotal_2.2 <- sum(df_F50_PROBLEMAMOTOR_2.2$Amplitude)
+Limiar_F50_2.2 <- 0.5 * EnergiaTotal_2.2
 
 F50_ProblemaMotor2.2 <- NULL
 Soma_Cumulativa <- 0
 
 for (i in 1:nrow(df_F50_PROBLEMAMOTOR_2.2)) {
   Soma_Cumulativa <- Soma_Cumulativa + df_F50_PROBLEMAMOTOR_2.2$Amplitude[i]
-  if (Soma_Cumulativa >= Limiar_F50) {
+  if (Soma_Cumulativa >= Limiar_F50_2.2) {
     F50_ProblemaMotor2.2 <- df_F50_PROBLEMAMOTOR_2.2$Frequencia[i]
     break
   }
@@ -598,15 +598,15 @@ MAVSD_PROBLEMAMOTOR_2.3 <- mean(abs(diff(diff(DadosProblemaMotor3$Controle, diff
 df_F50_PROBLEMAMOTOR_2.3 <- data.frame(Frequencia = VetorFreq2.3, Amplitude = FFT_Sinal2.3)
 
 # Calcule a F50
-EnergiaTotal <- sum(df_F50_PROBLEMAMOTOR_2.3$Amplitude)
-Limiar_F50 <- 0.5 * EnergiaTotal
+EnergiaTotal_2.3 <- sum(df_F50_PROBLEMAMOTOR_2.3$Amplitude)
+Limiar_F50_2.3 <- 0.5 * EnergiaTotal_2.3
 
 F50_ProblemaMotor2.3 <- NULL
 Soma_Cumulativa <- 0
 
 for (i in 1:nrow(df_F50_PROBLEMAMOTOR_2.3)) {
   Soma_Cumulativa <- Soma_Cumulativa + df_F50_PROBLEMAMOTOR_2.3$Amplitude[i]
-  if (Soma_Cumulativa >= Limiar_F50) {
+  if (Soma_Cumulativa >= Limiar_F50_2.3) {
     F50_ProblemaMotor2.3 <- df_F50_PROBLEMAMOTOR_2.3$Frequencia[i]
     break
   }
@@ -673,15 +673,15 @@ MAVSD_PROBLEMAMOTOR_2.4 <- mean(abs(diff(diff(DadosProblemaMotor1$Controle, diff
 df_F50_PROBLEMAMOTOR_2.4 <- data.frame(Frequencia = VetorFreq2.4, Amplitude = FFT_Sinal2.4)
 
 # Calcule a F50
-EnergiaTotal <- sum(df_F50_PROBLEMAMOTOR_2.4$Amplitude)
-Limiar_F50 <- 0.5 * EnergiaTotal
+EnergiaTotal_2.4 <- sum(df_F50_PROBLEMAMOTOR_2.4$Amplitude)
+Limiar_F50_2.4 <- 0.5 * EnergiaTotal_2.4
 
 F50_ProblemaMotor2.4 <- NULL
 Soma_Cumulativa <- 0
 
 for (i in 1:nrow(df_F50_PROBLEMAMOTOR_2.4)) {
   Soma_Cumulativa <- Soma_Cumulativa + df_F50_PROBLEMAMOTOR_2.4$Amplitude[i]
-  if (Soma_Cumulativa >= Limiar_F50) {
+  if (Soma_Cumulativa >= Limiar_F50_2.4) {
     F50_ProblemaMotor2.4 <- df_F50_PROBLEMAMOTOR_2.4$Frequencia[i]
     break
   }
@@ -744,19 +744,18 @@ MAVSD_PROBLEMAMOTOR_2.5 <- mean(abs(diff(diff(DadosProblemaMotor5$Controle, diff
 
 # F50 -------
 
-
 df_F50_PROBLEMAMOTOR_2.5 <- data.frame(Frequencia = VetorFreq2.5, Amplitude = FFT_Sinal2.5)
 
 # Calcule a F50
-EnergiaTotal <- sum(df_F50_PROBLEMAMOTOR_2.5$Amplitude)
-Limiar_F50 <- 0.5 * EnergiaTotal
+EnergiaTotal_2.5 <- sum(df_F50_PROBLEMAMOTOR_2.5$Amplitude)
+Limiar_F50_2.5 <- 0.5 * EnergiaTotal_2.5
 
 F50_ProblemaMotor2.5 <- NULL
 Soma_Cumulativa <- 0
 
 for (i in 1:nrow(df_F50_PROBLEMAMOTOR_2.5)) {
   Soma_Cumulativa <- Soma_Cumulativa + df_F50_PROBLEMAMOTOR_2.5$Amplitude[i]
-  if (Soma_Cumulativa >= Limiar_F50) {
+  if (Soma_Cumulativa >= Limiar_F50_2.5) {
     F50_ProblemaMotor2.5 <- df_F50_PROBLEMAMOTOR_2.5$Frequencia[i]
     break
   }
@@ -811,7 +810,7 @@ Tabela_Características <- data.frame(
 
 rownames(Tabela_Características) <- c("C1","C2","C3","C4","C5","DP1","DP2","DP3","DP4","DP5")
 
-
+Tabela_Características
 
 
 # //Teste de Normalidade\\ ------------------------------------------------------------
