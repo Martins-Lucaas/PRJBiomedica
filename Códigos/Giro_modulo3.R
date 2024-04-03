@@ -2,9 +2,14 @@
 library(seewave)
 library(signal)
 library(dygraphs)
-
+library(e1071)
+library(dplyr)
+library(tidyverse)
+library(readxl)
+library(tibble)
+library(nortest)
 # Definir diretório de trabalho
-setwd("E:/GitHub/PRJBiomedica")
+setwd("C:/Users/lucas/OneDrive/Documentos/Faculdade/7 Semestre/Proj/PRJBiomedica/Dados")
 
 # Função para calcular características
 calcular_caracteristicas <- function(dados, tempo, nome) {
@@ -122,7 +127,7 @@ Teste_Tstudent_MAVSD
 
 
 # Normalidade F50 -------------
-F50_PROBLEMAMOTONormalidade_ControleF50 <- c(F50_CONTROLE[1],F50_CONTROLE[2],F50_CONTROLE[3],F50_CONTROLE[4],F50_CONTROLE[5])
+Normalidade_ControleF50 <- c(F50_CONTROLE[1],F50_CONTROLE[2],F50_CONTROLE[3],F50_CONTROLE[4],F50_CONTROLE[5])
 Normalidade_ProblemaMotorF50 <- c(F50_PROBLEMAMOTOR[1],F50_PROBLEMAMOTOR[2],F50_PROBLEMAMOTOR[3],F50_PROBLEMAMOTOR[4],F50_PROBLEMAMOTOR[5])
 
 TesteNormalidade_Controle_F50 <- shapiro.test(Normalidade_ControleF50)
@@ -148,7 +153,7 @@ TesteNormalidade_ProblemaMotor_Kurtosis <- shapiro.test(Normalidade_ProblemaMoto
 TesteNormalidade_Controle_Kurtosis
 TesteNormalidade_ProblemaMotor_Kurtosis
 
-# Hipótese Kurtosis ------------
 
-Teste_Hipótese_Kurtosis <- pairwise.wilcox.test(Normalidade_Controle_Kurtosis, Normalidade_ProblemaMotor_Kurtosis)
-Teste_Hipótese_Kurtosis
+# Módulo 3 - FILTRO -------------------------------------------------------
+
+
