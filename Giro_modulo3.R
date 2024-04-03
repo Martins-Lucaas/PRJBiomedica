@@ -2,12 +2,6 @@
 library(seewave)
 library(signal)
 library(dygraphs)
-library(e1071)
-library(dplyr)
-library(tidyverse)
-library(readxl)
-library(tibble)
-library(nortest)
 
 # Definir diretório de trabalho
 setwd("E:/GitHub/PRJBiomedica")
