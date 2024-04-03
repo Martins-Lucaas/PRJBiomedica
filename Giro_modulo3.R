@@ -1,10 +1,16 @@
 # Carregar bibliotecas
 library(seewave)
+library(signal)
 library(dygraphs)
+library(e1071)
 library(dplyr)
+library(tidyverse)
+library(readxl)
+library(tibble)
+library(nortest)
 
 # Definir diretório de trabalho
-setwd("C:/Users/lucas/OneDrive/Documentos/Faculdade/7 Semestre/Proj/PRJBiomedica")
+setwd("E:/GitHub/PRJBiomedica")
 
 # Função para calcular características
 calcular_caracteristicas <- function(dados, tempo, nome) {
@@ -106,9 +112,8 @@ Tabela_Características
 # //Teste de Normalidade\\ ------------------------------------------------------------
 
 # Normalidade MAVSD ---------------
-
-Normalidade_ControleMAVSD <- c(MAVSD_CONTROLE_1.1,MAVSD_CONTROLE_1.2,MAVSD_CONTROLE_1.3,MAVSD_CONTROLE_1.4,MAVSD_CONTROLE_1.5)
-Normalidade_ProblemaMotorMAVSD <- c(MAVSD_PROBLEMAMOTOR_2.1,MAVSD_PROBLEMAMOTOR_2.2,MAVSD_PROBLEMAMOTOR_2.3,MAVSD_PROBLEMAMOTOR_2.4,MAVSD_PROBLEMAMOTOR_2.5)
+Normalidade_ControleMAVSD <- c(MAVSD_CONTROLE[1],MAVSD_CONTROLE[2],MAVSD_CONTROLE[3],MAVSD_CONTROLE[4],MAVSD_CONTROLE[5])
+Normalidade_ProblemaMotorMAVSD <- c(MAVSD_PROBLEMAMOTOR[1],MAVSD_PROBLEMAMOTOR[2],MAVSD_PROBLEMAMOTOR[3],MAVSD_PROBLEMAMOTOR[4],MAVSD_PROBLEMAMOTOR[5])
 
 TesteNormalidade_Controle_MAVSD <- shapiro.test(Normalidade_ControleMAVSD)
 TesteNormalidade_ProblemaMotor_MAVSD <- shapiro.test(Normalidade_ProblemaMotorMAVSD)
@@ -123,8 +128,8 @@ Teste_Tstudent_MAVSD
 
 
 # Normalidade F50 -------------
-Normalidade_ControleF50 <- c(F50_Controle1.1,F50_Controle1.2,F50_Controle1.3,F50_Controle1.4,F50_Controle1.5)
-Normalidade_ProblemaMotorF50 <- c(F50_ProblemaMotor2.1,F50_ProblemaMotor2.2,F50_ProblemaMotor2.3,F50_ProblemaMotor2.4,F50_ProblemaMotor2.5)
+F50_PROBLEMAMOTONormalidade_ControleF50 <- c(F50_CONTROLE[1],F50_CONTROLE[2],F50_CONTROLE[3],F50_CONTROLE[4],F50_CONTROLE[5])
+Normalidade_ProblemaMotorF50 <- c(F50_PROBLEMAMOTOR[1],F50_PROBLEMAMOTOR[2],F50_PROBLEMAMOTOR[3],F50_PROBLEMAMOTOR[4],F50_PROBLEMAMOTOR[5])
 
 TesteNormalidade_Controle_F50 <- shapiro.test(Normalidade_ControleF50)
 TesteNormalidade_ProblemaMotor_F50 <- shapiro.test(Normalidade_ProblemaMotorF50) 
@@ -140,8 +145,8 @@ Teste_Hipótese_F50
 
 # Normalidade Kurtosis ------------
 
-Normalidade_Controle_Kurtosis <- c(Kurtosis1.1, Kurtosis1.2, Kurtosis1.3, Kurtosis1.4, Kurtosis1.5)
-Normalidade_ProblemaMotor_Kurtosis <- c(Kurtosis2.1, Kurtosis2.2, Kurtosis2.3, Kurtosis2.4, Kurtosis2.5)
+Normalidade_Controle_Kurtosis <- c(KURTOSIS_CONTROLE[1], KURTOSIS_CONTROLE[2], KURTOSIS_CONTROLE[3], KURTOSIS_CONTROLE[4], KURTOSIS_CONTROLE[5])
+Normalidade_ProblemaMotor_Kurtosis <- c(KURTOSIS_PROBLEMAMOTOR[1], KURTOSIS_PROBLEMAMOTOR[2], KURTOSIS_PROBLEMAMOTOR[3], KURTOSIS_PROBLEMAMOTOR[4], KURTOSIS_PROBLEMAMOTOR[5])
 
 TesteNormalidade_Controle_Kurtosis <- shapiro.test(Normalidade_Controle_Kurtosis)
 TesteNormalidade_ProblemaMotor_Kurtosis <- shapiro.test(Normalidade_ProblemaMotor_Kurtosis)
