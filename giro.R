@@ -1,5 +1,5 @@
 # Recebendo os dados ------------------------------------------------------
-setwd("C:/Users/lucas/OneDrive/Documentos/Faculdade/7 Semestre/Proj/PRJBiomedica")
+setwd("E:/GitHub/PRJBiomedica")
 
 # Ler os dados
 dados <- read.table("giro.txt", header = TRUE, sep = "\t", dec = ",")
@@ -75,46 +75,42 @@ curtose1 <- kurtosis(dadoskur2)
 print(curtose1)
 
 # Fazer FFT ---------------------------------------------------------------
-
 # FFT Dados Controle
-AmplitudeFFTControle <- c(dados$Controle)
-
-FFTControle <- fft(AmplitudeFFTControle)
-
-df.dadosFFTControle <- data.frame(
-  Tempo = dados$Tempo,
-  AmplitudeFFT.Controle = FFTControle
-)
-
-plot(dados$Tempo, dados$Controle, # Sinal Original
-     type = "l", col = "red",
-     xlab ="Tempo", ylab ="Amplitude", 
-     main = "Original Signal") 
-
-plot(df.dadosFFTControle$Tempo, df.dadosFFTControle$AmplitudeFFT.Controle, 
-     type = "l", col = "purple",
-     xlab ="Tempo", ylab ="Amplitude", 
-     main = "Sinal FFT - Controle")
-
-
-# FFT Dados Problema
-AmplitudeFFTProblema <- c(dados$Problema.Motor)
-
-FFTProblema <- fft(AmplitudeFFTProblema)
-
-df.dadosFFTProblema <- data.frame(
-  Tempo = dados$Tempo,
-  AmplitudeFFT.Problema = FFTProblema
-)
-
-plot(dados$Tempo, dados$Problema.Motor, # Sinal Original
-     type = "l", col = "red",
-     xlab ="Tempo", ylab ="Amplitude", 
-     main = "Original Signal") 
-
-plot(df.dadosFFTProblema$Tempo, df.dadosFFTProblema$AmplitudeFFT.Problema, 
+plot(dados$Tempo, dados$Controle, 
      type = "l", col = "purple", 
-     xlab ="Tempo", ylab ="Amplitude", 
-     main = "Sinal FFT - Problema")
+     xlab = "Tempo", ylab = "Controle", 
+     main = "Dados Controle - Sinal Módulo 1")
 
+FreqAmostragem <- 1/(dados$Tempo[2]-dados$Tempo[1])
+delta <- FreqAmostragem/(length(dados$Tempo))
+FreqRes <- (length(dados$Tempo)-1)*delta
+VetorFreq <- seq(0,FreqRes,delta)
+FFT_Sinal <- Mod(fft(dados$Controle))
 
+dygraph(data.frame(freq = VetorFreq[1:(length(VetorFreq)/2)],
+                   mag = FFT_Sinal[1:(length(FFT_Sinal)/2)]),
+        main = "Espectro de Frequência - Sinal Controle Módulo 1",
+        xlab = "Frequência (Hz)",
+        ylab = "Magnitude") %>%
+  dyRangeSelector()
+
+# FFT Dados Problema -------------------------------
+
+plot(dados$Tempo, dados$Problema, 
+     type = "l", col = "purple", 
+     xlab = "Tempo", ylab = "Controle", 
+     main = "Dados Controle - Sinal Módulo 1")
+
+FreqAmostragem2 <- 1/(dados$Tempo[2]-dados$Tempo[1])
+
+delta2 <- FreqAmostragem2/(length(dados$Tempo))
+FreqRes2 <- (length(dados$Tempo)-1)*delta2
+VetorFreq2 <- seq(0,FreqRes2,delta2)
+FFT_Sinal2 <- Mod(fft(dados$Problema))
+
+dygraph(data.frame(freq = VetorFreq2[1:(length(VetorFreq2)/2)],
+                   mag = FFT_Sinal2[1:(length(FFT_Sinal2)/2)]),
+        main = "Espectro de Frequência - Sinal Problema Motor Módulo 1",
+        xlab = "Frequência (Hz)",
+        ylab = "Magnitude") %>%
+  dyRangeSelector()
