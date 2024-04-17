@@ -40,7 +40,7 @@ calcular_caracteristicas <- function(dados, tempo, nome) {
   MAVSD <- mean(abs(diff(diff(dados, differences = 2))))
   
   # F50
-  df_F50 <- data.frame(Frequencia = VetorFreq, Amplitude = FFT_Sinal)
+  df_F50 <- data.frame(Frequencia = VetorFreq[1:(length(VetorFreq) / 2)], Amplitude = FFT_Sinal[1:(length(FFT_Sinal) / 2)])
   EnergiaTotal <- sum(df_F50$Amplitude)
   Limiar_F50 <- 0.5 * EnergiaTotal
   Soma_Cumulativa <- 0
@@ -194,9 +194,10 @@ calcular_caracteristicas_filtrado <- function(dados, tempo, nome) {
        main = paste("Espectro de Frequência Filtrado -", nome))
   
   # Calculando F50 para o sinal filtrado
-  df_F50 <- data.frame(Frequencia = VetorFreq, Amplitude = FFT_Sinal)
+  df_F50 <- data.frame(Frequencia = VetorFreq[1:(length(VetorFreq) / 2)], Amplitude = FFT_Sinal[1:(length(FFT_Sinal) / 2)])
+  
   EnergiaTotal <- sum(df_F50$Amplitude)
-  Limiar_F50 <- 0.5 * EnergiaTotal
+  Limiar_F50 <- 0.5 * EnergiaTotal  
   Soma_Cumulativa <- 0
   F50_Filtrado <- NULL
   
