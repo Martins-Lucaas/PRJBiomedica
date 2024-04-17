@@ -1,0 +1,1 @@
+Repositório destinado ao trabalho da disciplina de Projeto Interdisciplinar de Engenharia Biomédica (PROJ), o qual se trata da pesquisa, avaliação, filtragem e teste de normalidade para sinais de dois grupos (Controle e Problema Motor)
